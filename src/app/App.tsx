@@ -19,28 +19,46 @@ export default function App() {
 
   const perimeter = squareSize * 4;
 
+ // Calculate positions for each character around the square
   const getCharacterPosition = (index: number, offset: number) => {
-  const totalChars = characters.length;
-  const t = ((index / totalChars) + offset / perimeter) % 1; // normalized 0–1 loop
+    const totalChars = characters.length;
+    const spacing = perimeter / totalChars;
+    const position = (index * spacing + offset) % perimeter;
+    
+    let x = 0;
+    let y = 0;
+    let rotation = 0;
+    
+    const halfSize = squareSize / 2;
+    
+    // Top side (moving right)
+    if (position < squareSize) {
+      x = centerX - halfSize + position;
+      y = centerY - halfSize;
+      rotation = 0;
+    }
+    // Right side (moving down)
+    else if (position < squareSize * 2) {
+      x = centerX + halfSize;
+      y = centerY - halfSize + (position - squareSize);
+      rotation = 90;
+    }
+    // Bottom side (moving left)
+    else if (position < squareSize * 3) {
+      x = centerX + halfSize - (position - squareSize * 2);
+      y = centerY + halfSize;
+      rotation = 180;
+    }
+    // Left side (moving up)
+    else {
+      x = centerX - halfSize;
+      y = centerY + halfSize - (position - squareSize * 3);
+      rotation = 270;
+    }
+    
+    return { x, y, rotation };
+  };
 
-  // Superellipse / squircle parameters
-  const a = squareSize / 2;  // horizontal radius
-  const b = squareSize / 2;  // vertical radius
-  const n = 4;               // squircle exponent (4 = smooth, square-ish circle)
-
-  const theta = t * Math.PI * 2; // convert loop to radians
-
-  // Squircle parametric formula
-  const x = centerX + Math.sign(Math.cos(theta)) * Math.pow(Math.abs(Math.cos(theta)), 2 / n) * a;
-  const y = centerY + Math.sign(Math.sin(theta)) * Math.pow(Math.abs(Math.sin(theta)), 2 / n) * b;
-
-  // Auto rotate characters based on direction of travel
-  const dx = -Math.sin(theta);
-  const dy = Math.cos(theta);
-  const rotation = (Math.atan2(dy, dx) * 180) / Math.PI;
-
-  return { x, y, rotation };
-};
 
   return (
     <div className="fixed inset-0 w-full h-full overflow-hidden bg-background flex items-center justify-center">
