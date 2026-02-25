@@ -1,191 +1,270 @@
-import { useEffect, useRef, useState } from 'react';
-import { motion } from 'motion/react';
+// App.tsx
+import { useEffect, useMemo, useState } from "react";
+import { motion } from "motion/react";
+
+/**
+ * Visual theme mapping (Option A):
+ * - Background         -> bg-background (Creamy White #F5F0E1)
+ * - Animated text      -> text-accent (Soft Citrus Yellow #F6E7B4)
+ * - Title + borders    -> text-primary / border-primary (Warm Sand #D9C6AD)
+ * - Perfume lid pieces -> bg-primary (Warm Sand #D9C6AD)
+ */
 
 export default function App() {
+  // Text to orbit around the square
   const text = "Bergamot  •  Jasmine  •  Musk  •  ";
+
   const [characters, setCharacters] = useState<string[]>([]);
 
   useEffect(() => {
-    // Split text into individual characters
-    setCharacters(text.split(''));
-  }, []);
+    setCharacters(text.split(""));
+  }, [text]);
 
-  // Use viewport-based dimensions for responsiveness
-  // Base calculations on viewport width (vw)
-  const vw = typeof window !== 'undefined' ? window.innerWidth : 1080;
-  const vh = typeof window !== 'undefined' ? window.innerHeight : 1920;
-  
-  // Scale factor based on viewport width (1080px as base)
-  const scale = vw / 1080;
-  
-  // Square dimensions scaled for viewport
+  // Viewport-based responsive math
+  const { vw, vh } =
+    typeof window !== "undefined"
+      ? { vw: window.innerWidth, vh: window.innerHeight }
+      : { vw: 1080, vh: 1920 };
+
+  const scale = vw / 1080; // baseline 1080px
   const squareSize = 340 * scale;
+
+  // Center point (slightly above middle for layout balance)
   const centerX = vw / 2;
-  const centerY = vh * 0.458; // ~880/1920 ratio
-  
-  // Calculate perimeter length
+  const centerY = vh * 0.458;
+
+  // Perfume lid dimensions/positions (relative to center + square)
+  const lid = useMemo(() => {
+    const topOfSquare = centerY - squareSize / 2;
+    const lidWidth = 160 * scale;
+    const lidDepth = 18 * scale;
+    const lidBodyHeight = 54 * scale;
+    const lidRadius = lidDepth / 2;
+
+    return {
+      // Top rounded cap
+      cap: {
+        x: centerX - lidWidth / 2,
+        y: topOfSquare - (lidDepth + 24 * scale),
+        w: lidWidth,
+        h: lidDepth,
+        r: lidRadius,
+      },
+      // Lid body (rectangle)
+      body: {
+        x: centerX - (lidWidth - 40 * scale) / 2,
+        y: topOfSquare - (lidBodyHeight + 8 * scale),
+        w: lidWidth - 40 * scale,
+        h: lidBodyHeight,
+        r: 8 * scale,
+      },
+      // Small bottom curve/accent sitting right above the square
+      base: {
+        x: centerX - (lidWidth - 72 * scale) / 2,
+        y: topOfSquare - (12 * scale),
+        w: lidWidth - 72 * scale,
+        h: 10 * scale,
+        r: 12 * scale,
+      },
+      // A thin highlight line on the lid (subtle)
+      highlight: {
+        x: centerX - (lidWidth - 42 * scale) / 2,
+        y: topOfSquare - (lidBodyHeight + 2 * scale),
+        w: lidWidth - 42 * scale,
+        h: 2,
+      },
+    };
+  }, [centerX, centerY, scale, squareSize]);
+
+  // Compute character positions along the square
   const perimeter = squareSize * 4;
-  
-  // Calculate positions for each character around the square
+
   const getCharacterPosition = (index: number, offset: number) => {
-    const totalChars = characters.length;
+    const totalChars = Math.max(characters.length, 1);
     const spacing = perimeter / totalChars;
     const position = (index * spacing + offset) % perimeter;
-    
+
+    const half = squareSize / 2;
     let x = 0;
     let y = 0;
     let rotation = 0;
-    
-    const halfSize = squareSize / 2;
-    
-    // Top side (moving right)
+
+    // Top side (left → right)
     if (position < squareSize) {
-      x = centerX - halfSize + position;
-      y = centerY - halfSize;
+      x = centerX - half + position;
+      y = centerY - half;
       rotation = 0;
     }
-    // Right side (moving down)
+    // Right side (top → bottom)
     else if (position < squareSize * 2) {
-      x = centerX + halfSize;
-      y = centerY - halfSize + (position - squareSize);
+      x = centerX + half;
+      y = centerY - half + (position - squareSize);
       rotation = 90;
     }
-    // Bottom side (moving left)
+    // Bottom side (right → left)
     else if (position < squareSize * 3) {
-      x = centerX + halfSize - (position - squareSize * 2);
-      y = centerY + halfSize;
+      x = centerX + half - (position - squareSize * 2);
+      y = centerY + half;
       rotation = 180;
     }
-    // Left side (moving up)
+    // Left side (bottom → top)
     else {
-      x = centerX - halfSize;
-      y = centerY + halfSize - (position - squareSize * 3);
+      x = centerX - half;
+      y = centerY + half - (position - squareSize * 3);
       rotation = 270;
     }
-    
+
     return { x, y, rotation };
   };
 
   return (
-    <div className="fixed inset-0 w-full h-full overflow-hidden bg-[#561C24] flex items-center justify-center">
-      {/* Instagram Reel container - responsive */}
-      <div 
-        className="relative bg-[#561C24] w-full h-full"
+    <div className="relative min-h-dvh overflow-hidden bg-background text-foreground antialiased">
+      {/* --- Central square guide (border uses Warm Sand via border-primary) --- */}
+      <div
+        className="absolute rounded-lg border border-primary shadow-sm"
+        style={{
+          width: squareSize,
+          height: squareSize,
+          left: centerX - squareSize / 2,
+          top: centerY - squareSize / 2,
+          boxShadow:
+            "0 10px 24px rgba(0, 0, 0, 0.06), inset 0 0 0 1px rgba(0,0,0,0.02)",
+          background:
+            "linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0))",
+        }}
+        aria-hidden
+      />
+
+      {/* --- Perfume Lid (Warm Sand via bg-primary / border-primary) --- */}
+      {/* Cap */}
+      <div
+        className="absolute bg-primary"
+        style={{
+          left: lid.cap.x,
+          top: lid.cap.y,
+          width: lid.cap.w,
+          height: lid.cap.h,
+          borderRadius: lid.cap.r,
+          boxShadow: "0 6px 12px rgba(0,0,0,0.08)",
+        }}
+        aria-hidden
+      />
+      {/* Body */}
+      <div
+        className="absolute bg-primary border border-primary/60"
+        style={{
+          left: lid.body.x,
+          top: lid.body.y,
+          width: lid.body.w,
+          height: lid.body.h,
+          borderRadius: lid.body.r,
+          boxShadow: "0 8px 18px rgba(0,0,0,0.10)",
+        }}
+        aria-hidden
+      />
+      {/* Base curve */}
+      <div
+        className="absolute bg-primary"
+        style={{
+          left: lid.base.x,
+          top: lid.base.y,
+          width: lid.base.w,
+          height: lid.base.h,
+          borderRadius: lid.base.r,
+          filter: "blur(0.2px)",
+          boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
+        }}
+        aria-hidden
+      />
+      {/* Subtle highlight line */}
+      <div
+        className="absolute bg-background/40"
+        style={{
+          left: lid.highlight.x,
+          top: lid.highlight.y,
+          width: lid.highlight.w,
+          height: lid.highlight.h,
+        }}
+        aria-hidden
+      />
+
+      {/* --- Animated text around the square (Soft Citrus Yellow via text-accent) --- */}
+      {characters.map((char, index) => (
+        <AnimatedCharacter
+          key={`${char}-${index}`}
+          char={char}
+          index={index}
+          getPosition={getCharacterPosition}
+          scale={scale}
+        />
+      ))}
+
+      {/* --- Brand Title (Warm Sand via text-primary) --- */}
+      <div
+        className="pointer-events-none absolute w-full text-center"
+        style={{ top: centerY + squareSize / 2 + 72 * scale }}
       >
-        {/* Perfume Lid - Static */}
-        <div 
-          className="absolute left-1/2"
-          style={{ 
-            top: `${vh * 0.302}px`, // ~580/1920 ratio
-            transform: `translateX(-50%) scale(${scale})`,
-            transformOrigin: 'center top'
-          }}
-        >
-          <svg width="120" height="80" viewBox="0 0 120 80" fill="none">
-            {/* Lid top */}
-            <ellipse cx="60" cy="15" rx="45" ry="15" fill="#C7B7A3" opacity="0.95"/>
-            {/* Lid body */}
-            <rect x="20" y="15" width="80" height="50" fill="#C7B7A3" opacity="0.9"/>
-            {/* Lid bottom curve */}
-            <path d="M 20 65 Q 60 75 100 65 L 100 15 L 20 15 Z" fill="#C7B7A3" opacity="0.85"/>
-            {/* Subtle highlight */}
-            <ellipse cx="60" cy="15" rx="35" ry="10" fill="#D8C8B3" opacity="0.4"/>
-            {/* Decorative detail */}
-            <rect x="55" y="40" width="10" height="20" fill="#B8A793" opacity="0.6" rx="2"/>
-          </svg>
-        </div>
-
-        {/* Animated Text Around Square */}
-        <div className="absolute inset-0">
-          {characters.map((char, index) => (
-            <AnimatedCharacter
-              key={index}
-              char={char}
-              index={index}
-              getPosition={getCharacterPosition}
-              scale={scale}
-            />
-          ))}
-        </div>
-
-        {/* Brand Title - Static */}
-        <div 
-          className="absolute left-1/2 text-center"
-          style={{ 
-            top: `${vh * 0.62}px`, // Below the bottle
-            transform: `translateX(-50%) scale(${scale})`,
-            transformOrigin: 'center top'
-          }}
-        >
-          <h1 
-            className="text-[#E8D8C4] whitespace-nowrap"
-            style={{
-              fontFamily: '"Cormorant Garamond", serif',
-              fontWeight: 300,
-              fontSize: '48px',
-              letterSpacing: '3px',
-              textShadow: '0 3px 12px rgba(0, 0, 0, 0.4), 0 0 25px rgba(232, 216, 196, 0.2)',
-            }}
-          >
-            Al-Mustapha Scents
-          </h1>
-        </div>
+        <h1 className="text-3xl md:text-4xl font-medium tracking-wide text-primary">
+          Al‑Mustapha Scents
+        </h1>
+        <p className="mt-2 text-sm md:text-base text-foreground/70">
+          Eau de Parfum • Hand‑crafted luxury
+        </p>
       </div>
     </div>
   );
 }
 
-function AnimatedCharacter({ 
-  char, 
-  index, 
+function AnimatedCharacter({
+  char,
+  index,
   getPosition,
-  scale
-}: { 
-  char: string; 
-  index: number; 
-  getPosition: (index: number, offset: number) => { x: number; y: number; rotation: number };
+  scale,
+}: {
+  char: string;
+  index: number;
+  getPosition: (index: number, offset: number) => {
+    x: number;
+    y: number;
+    rotation: number;
+  };
   scale: number;
 }) {
-  const vw = typeof window !== 'undefined' ? window.innerWidth : 1080;
-  const perimeter = 340 * scale * 4; // squareSize * 4
-  
-  // Generate smooth keyframes - sample at many points along the path
-  const numKeyframes = 100;
-  const keyframes = Array.from({ length: numKeyframes + 1 }, (_, i) => {
-    const offset = (i / numKeyframes) * perimeter;
-    return getPosition(index, offset);
-  });
-  
+  // Sample many points to generate smooth keyframes
+  const numKeyframes = 120;
+  const squareSize = 340 * scale;
+  const perimeter = squareSize * 4;
+
+  const keyframes = useMemo(() => {
+    return Array.from({ length: numKeyframes + 1 }, (_, i) => {
+      const offset = (i / numKeyframes) * perimeter;
+      return getPosition(index, offset);
+    });
+  }, [index, perimeter, getPosition]);
+
+  const xs = keyframes.map((k) => k.x);
+  const ys = keyframes.map((k) => k.y);
+  const rs = keyframes.map((k) => k.rotation);
+
   return (
-    <motion.div
-      className="absolute text-[#E8D8C4] select-none pointer-events-none origin-center"
-      style={{
-        fontFamily: '"Cormorant Garamond", serif',
-        fontWeight: 400,
-        fontSize: `${38 * scale}px`,
-        letterSpacing: `${1.5 * scale}px`,
-        textShadow: `
-          0 ${2 * scale}px ${4 * scale}px rgba(0, 0, 0, 0.8),
-          0 ${4 * scale}px ${8 * scale}px rgba(0, 0, 0, 0.6),
-          0 0 ${30 * scale}px rgba(232, 216, 196, 0.4),
-          0 ${1 * scale}px ${2 * scale}px rgba(0, 0, 0, 0.9)
-        `,
-        filter: `drop-shadow(0 0 ${12 * scale}px rgba(232, 216, 196, 0.25)) contrast(1.1)`,
-        WebkitFontSmoothing: 'antialiased',
-      }}
-      animate={{
-        x: keyframes.map(k => k.x).reverse(),
-        y: keyframes.map(k => k.y).reverse(),
-        rotate: keyframes.map(k => k.rotation).reverse(),
-      }}
+    <motion.span
+      className="absolute select-none font-medium text-base md:text-lg text-accent drop-shadow-[0_1px_0_rgba(0,0,0,0.05)]"
+      initial={{ x: xs[0], y: ys[0], rotate: rs[0] }}
+      animate={{ x: xs, y: ys, rotate: rs }}
       transition={{
         duration: 14,
         repeat: Infinity,
         ease: "linear",
-        repeatType: "loop"
+        repeatType: "loop",
+      }}
+      style={{
+        // Nudge to visually center each glyph on the path
+        transformOrigin: "center",
+        // Tiny letter spacing helps readability around corners
+        letterSpacing: "0.02em",
       }}
     >
       {char}
-    </motion.div>
+    </motion.span>
   );
 }
