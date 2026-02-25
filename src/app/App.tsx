@@ -66,9 +66,9 @@ export default function App() {
           }}
         >
           <svg width="120" height="80" viewBox="0 0 120 80" fill="none">
-            <ellipse cx="60" cy="15" rx="45" ry="15" fill="#D9C6A3" opacity="0.95" />
-            <rect x="20" y="15" width="80" height="50" fill="#D9C6A3" opacity="0.9" />
-            <path d="M 20 65 Q 60 75 100 65 L 100 15 L 20 15 Z" fill="#D9C6A3" opacity="0.85" />
+            <ellipse cx="60" cy="15" rx="45" ry="15" fill="#4E3B2F" opacity="0.95" />
+            <rect x="20" y="15" width="80" height="50" fill="#4E3B2F" opacity="0.9" />
+            <path d="M 20 65 Q 60 75 100 65 L 100 15 L 20 15 Z" fill="#4E3B2F" opacity="0.85" />
             <ellipse cx="60" cy="15" rx="35" ry="10" fill="#F4EDE5" opacity="0.4" />
             <rect x="55" y="40" width="10" height="20" fill="#B7A88E" opacity="0.6" rx="2" />
           </svg>
