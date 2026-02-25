@@ -4,25 +4,25 @@
   --font-size: 16px;
 
   /* NEW LIGHT MODE THEME */
-  --background: #F5F0E1;             /* Creamy White */
+  --background: #4B3D3A;             /* Creamy White */
   --foreground: #030213;
 
-  --card: #F6E7B4;                   /* Soft Citrus Yellow */
+  --card: #4B3D3A;                   /* Soft Citrus Yellow */
   --card-foreground: #030213;
 
-  --popover: #F6E7B4;
+  --popover: #4B3D3A;
   --popover-foreground: #030213;
 
-  --primary: #D9C6AD;                /* Warm Sand */
+  --primary: #FFC0CB;                /* Warm Sand */
   --primary-foreground: #030213;
 
-  --secondary: #F6E7B4;
+  --secondary: #FFC0CB;
   --secondary-foreground: #030213;
 
-  --muted: #EDE6D7;
+  --muted: #FFC0CB;
   --muted-foreground: #6B6357;
 
-  --accent: #F6E7B4;
+  --accent: #FFC0CB;
   --accent-foreground: #030213;
 
   --destructive: #d4183d;           /* unchanged – let me know if you want a softer colour */
