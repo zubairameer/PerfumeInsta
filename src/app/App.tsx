@@ -60,7 +60,7 @@ export default function App() {
         <div
           className="absolute left-1/2"
           style={{
-            top: `${vh * 0.302}px`,
+            top: `${vh * 0.34}px`,
             transform: `translateX(-50%) scale(${scale})`,
             transformOrigin: 'center top'
           }}
