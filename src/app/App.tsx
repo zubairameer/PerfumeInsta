@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 
 export default function App() {
-  const text = "12345789987654321  •  abcdefgefhgdrtckiu  •  !@#$%^&*((*&^%$#@!  •  ";
+  const text = "Hints of cedarwood  •  Soft jasmine  •  Delicate rose  •  Touch of warm vanilla  •  Whisper of sandalwood  •";
   const [characters, setCharacters] = useState<string[]>([]);
 
   useEffect(() => {
