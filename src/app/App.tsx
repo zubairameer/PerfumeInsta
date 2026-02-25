@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 
 export default function App() {
-  const text = "Fresh Cotton  •  Lavender  •  Warm Musk  •  ";
+  const text = "Bergamot  •  Jasmine  •  Musk  •  ";
   const [characters, setCharacters] = useState<string[]>([]);
 
   useEffect(() => {
