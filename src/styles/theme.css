@@ -1,209 +1,36 @@
-@custom-variant dark (&:is(.dark *));
-
 :root {
-  --font-size: 16px;
+  --background: #F7F4EC;         /* Soft Luxury Cream */
+  --foreground: #2A2926;         /* Charcoal Ink */
 
-  /* NEW LIGHT MODE THEME */
-  --background: #4B3D3A;             /* Creamy White */
-  --foreground: #030213;
+  --primary: #D0BFAF;            /* Gentle Sandstone */
+  --primary-foreground: #2A2926;
 
-  --card: #4B3D3A;                   /* Soft Citrus Yellow */
-  --card-foreground: #030213;
+  --secondary: #F4E8C1;          /* Champagne Citrine */
+  --secondary-foreground: #2A2926;
 
-  --popover: #4B3D3A;
-  --popover-foreground: #030213;
+  --accent: #F4E8C1;             /* Soft Citrus Glow */
+  --accent-foreground: #2A2926;
 
-  --primary: #FFC0CB;                /* Warm Sand */
-  --primary-foreground: #030213;
+  --card: #FAF7F0;
+  --card-foreground: #2A2926;
 
-  --secondary: #FFC0CB;
-  --secondary-foreground: #030213;
+  --border: #D0BFAF;
+  --muted: #E8E2D9;
+  --muted-foreground: #7D7369;
 
-  --muted: #FFC0CB;
-  --muted-foreground: #6B6357;
-
-  --accent: #FFC0CB;
-  --accent-foreground: #030213;
-
-  --destructive: #d4183d;           /* unchanged – let me know if you want a softer colour */
-  --destructive-foreground: #ffffff;
-
-  --border: #D9C6AD;
-  --input: transparent;
-  --input-background: #F6E7B4;
-  --switch-background: #D9C6AD;
-
-  --font-weight-medium: 500;
-  --font-weight-normal: 400;
-
-  --ring: #D9C6AD;
-
-  /* optional updated chart tones */
-  --chart-1: #F6E7B4;
-  --chart-2: #D9C6AD;
-  --chart-3: #BBAA93;
-  --chart-4: #F5F0E1;
-  --chart-5: #E3D7C6;
-
-  --radius: 0.625rem;
-
-  --sidebar: #F5F0E1;
-  --sidebar-foreground: #030213;
-  --sidebar-primary: #D9C6AD;
-  --sidebar-primary-foreground: #030213;
-
-  --sidebar-accent: #F6E7B4;
-  --sidebar-accent-foreground: #030213;
-
-  --sidebar-border: #D9C6AD;
-  --sidebar-ring: #D9C6AD;
+  --ring: #D0BFAF;
 }
 
+/* Dark mode optional */
 .dark {
-  /* NEW DARK MODE THEME — warm, soft, natural */
-  --background: #3A332A;             /* Deep warm sand */
-  --foreground: #F5F0E1;             /* Creamy White */
+  --background: #2B2724;          /* Deep Espresso */
+  --foreground: #F7F4EC;
 
-  --card: #4A4135;
-  --card-foreground: #F5F0E1;
+  --primary: #D0BFAF;
+  --primary-foreground: #2B2724;
 
-  --popover: #4A4135;
-  --popover-foreground: #F5F0E1;
+  --accent: #B7A88E;
+  --accent-foreground: #F7F4EC;
 
-  --primary: #D9C6AD;                /* Warm Sand */
-  --primary-foreground: #3A332A;
-
-  --secondary: #6A5E50;
-  --secondary-foreground: #F5F0E1;
-
-  --muted: #6A5E50;
-  --muted-foreground: #D9C6AD;
-
-  --accent: #7C6F60;
-  --accent-foreground: #F5F0E1;
-
-  --destructive: #c0392b;
-  --destructive-foreground: #ffffff;
-
-  --border: #6A5E50;
-  --input: #6A5E50;
-  --ring: #A69785;
-
-  --font-weight-medium: 500;
-  --font-weight-normal: 400;
-
-  --chart-1: #F6E7B4;
-  --chart-2: #D9C6AD;
-  --chart-3: #BBAA93;
-  --chart-4: #8C7D6A;
-  --chart-5: #6A5E50;
-
-  --sidebar: #3A332A;
-  --sidebar-foreground: #F5F0E1;
-
-  --sidebar-primary: #D9C6AD;
-  --sidebar-primary-foreground: #3A332A;
-
-  --sidebar-accent: #6A5E50;
-  --sidebar-accent-foreground: #F5F0E1;
-
-  --sidebar-border: #6A5E50;
-  --sidebar-ring: #A69785;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-input-background: var(--input-background);
-  --color-switch-background: var(--switch-background);
-  --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-
-  body {
-    @apply bg-background text-foreground;
-  }
-
-  html {
-    font-size: var(--font-size);
-  }
-
-  h1 {
-    font-size: var(--text-2xl);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
-
-  h2 {
-    font-size: var(--text-xl);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
-
-  h3 {
-    font-size: var(--text-lg);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
-
-  h4 {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
-
-  label {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
-
-  button {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
-
-  input {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-normal);
-    line-height: 1.5;
-  }
+  --border: #5E5348;
 }
