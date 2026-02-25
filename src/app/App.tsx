@@ -67,10 +67,10 @@ export default function App() {
   };
 
   return (
-    <div className="fixed inset-0 w-full h-full overflow-hidden bg-[#561C24] flex items-center justify-center">
+    <div className="fixed inset-0 w-full h-full overflow-hidden bg-background flex items-center justify-center">
       {/* Instagram Reel container - responsive */}
       <div 
-        className="relative bg-[#561C24] w-full h-full"
+        className="relative bg-background w-full h-full"
       >
         {/* Perfume Lid - Static */}
         <div 
