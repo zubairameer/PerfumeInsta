@@ -5,25 +5,25 @@
 
   /* LUXURY LIGHT MODE */
   --background: #F7F4EC;         /* Soft Luxury Cream */
-  --foreground: #2A2926;         /* Charcoal Ink */
+  --foreground: #6B5848;         /* Charcoal Ink */
 
   --card: #FAF7F0;
-  --card-foreground: #2A2926;
+  --card-foreground: #6B5848;
 
   --popover: #F4EDE5;
-  --popover-foreground: #2A2926;
+  --popover-foreground: #6B5848;
 
   --primary: #D0BFAF;            /* Gentle Sandstone */
   --primary-foreground: #2A2926;
 
   --secondary: #F4E8C1;          /* Champagne Citrine */
-  --secondary-foreground: #2A2926;
+  --secondary-foreground: #6B5848;
 
   --muted: #E8E2D9;
   --muted-foreground: #7D7369;
 
   --accent: #F4E8C1;             /* Soft Citrus Glow */
-  --accent-foreground: #2A2926;
+  --accent-foreground: #6B5848;
 
   --destructive: #B4655A;        /* Soft muted red (luxury danger) */
   --destructive-foreground: #ffffff;
@@ -50,10 +50,10 @@
   --sidebar: #F7F4EC;
   --sidebar-foreground: #2A2926;
   --sidebar-primary: #D0BFAF;
-  --sidebar-primary-foreground: #2A2926;
+  --sidebar-primary-foreground: #6B5848;
 
   --sidebar-accent: #F4E8C1;
-  --sidebar-accent-foreground: #2A2926;
+  --sidebar-accent-foreground: #6B5848;
 
   --sidebar-border: #D0BFAF;
   --sidebar-ring: #D0BFAF;
