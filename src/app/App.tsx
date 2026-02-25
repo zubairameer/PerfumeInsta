@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 
-export default text = "Bergamot  •  Jasmine  •  Musk  •";export default function App() {
+export default function App() {
+  const text = "Fresh Cotton  •  Lavender  •  Warm Musk  •  ";
   const [characters, setCharacters] = useState<string[]>([]);
 
   useEffect(() => {
@@ -56,24 +57,24 @@ export default text = "Bergamot  •  Jasmine  •  Musk  •";export default fu
       <div className="relative bg-background w-full h-full">
 
         {/* Perfume Lid */}
-        <div 
+        <div
           className="absolute left-1/2"
-          style={{ 
+          style={{
             top: `${vh * 0.302}px`,
             transform: `translateX(-50%) scale(${scale})`,
             transformOrigin: 'center top'
           }}
         >
           <svg width="120" height="80" viewBox="0 0 120 80" fill="none">
-            <ellipse cx="60" cy="15" rx="45" ry="15" fill="#D9C6A3" opacity="0.95"/>
-            <rect x="20" y="15" width="80" height="50" fill="#D9C6A3" opacity="0.9"/>
-            <path d="M 20 65 Q 60 75 100 65 L 100 15 L 20 15 Z" fill="#D9C6A3" opacity="0.85"/>
-            <ellipse cx="60" cy="15" rx="35" ry="10" fill="#F4EDE5" opacity="0.4"/>
-            <rect x="55" y="40" width="10" height="20" fill="#B7A88E" opacity="0.6" rx="2"/>
+            <ellipse cx="60" cy="15" rx="45" ry="15" fill="#D9C6A3" opacity="0.95" />
+            <rect x="20" y="15" width="80" height="50" fill="#D9C6A3" opacity="0.9" />
+            <path d="M 20 65 Q 60 75 100 65 L 100 15 L 20 15 Z" fill="#D9C6A3" opacity="0.85" />
+            <ellipse cx="60" cy="15" rx="35" ry="10" fill="#F4EDE5" opacity="0.4" />
+            <rect x="55" y="40" width="10" height="20" fill="#B7A88E" opacity="0.6" rx="2" />
           </svg>
         </div>
 
-        {/* Animated Text */}
+        {/* Animated Text Around Square */}
         <div className="absolute inset-0">
           {characters.map((char, index) => (
             <AnimatedCharacter
@@ -86,19 +87,19 @@ export default text = "Bergamot  •  Jasmine  •  Musk  •";export default fu
           ))}
         </div>
 
-        {/* Title */}
-        <div 
+        {/* Brand Title */}
+        <div
           className="absolute left-1/2 text-center"
-          style={{ 
+          style={{
             top: `${vh * 0.62}px`,
             transform: `translateX(-50%) scale(${scale})`,
             transformOrigin: 'center top'
           }}
         >
-          <h1 
+          <h1
             className="whitespace-nowrap"
             style={{
-              color: "#4E3B2F",
+              color: "#4E3B2F", // dark luxury brown
               fontFamily: '"Cormorant Garamond", serif',
               fontWeight: 300,
               fontSize: '48px',
@@ -118,18 +119,17 @@ export default text = "Bergamot  •  Jasmine  •  Musk  •";export default fu
   );
 }
 
-function AnimatedCharacter({ 
-  char, 
-  index, 
+function AnimatedCharacter({
+  char,
+  index,
   getPosition,
   scale
-}: { 
-  char: string; 
-  index: number; 
+}: {
+  char: string;
+  index: number;
   getPosition: (index: number, offset: number) => { x: number; y: number; rotation: number };
   scale: number;
 }) {
-
   const perimeter = 340 * scale * 4;
 
   const numKeyframes = 100;
@@ -142,7 +142,7 @@ function AnimatedCharacter({
     <motion.div
       className="absolute select-none pointer-events-none origin-center"
       style={{
-        color: "#4E3B2F",
+        color: "#4E3B2F", // dark brown text
         fontFamily: '"Cormorant Garamond", serif',
         fontWeight: 400,
         fontSize: `${38 * scale}px`,
