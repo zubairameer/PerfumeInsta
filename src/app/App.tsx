@@ -142,7 +142,7 @@ function AnimatedCharacter({
     <motion.div
       className="absolute select-none pointer-events-none origin-center"
       style={{
-        color: "#4E3B2F", // dark brown text
+        color: "#fcc814", //  text
         fontFamily: '"Cormorant Garamond", serif',
         fontWeight: 400,
         fontSize: `${38 * scale}px`,
